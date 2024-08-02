@@ -1,0 +1,102 @@
+class Car {
+    constructor(manufacturer, model, year, avgSpeed) {
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.year = year;
+        this.avgSpeed = avgSpeed;
+    }
+
+    displayInfo() {
+        console.log(`Manufacturer: ${this.manufacturer}`);
+        console.log(`Model: ${this.model}`);
+        console.log(`Year: ${this.year}`);
+        console.log(`Average Speed: ${this.avgSpeed} km/h`);
+    }
+
+    travelTime(distance) {
+        // Time in hours without breaks
+        const timeWithoutBreaks = distance / this.avgSpeed;
+        
+        // Number of breaks needed (1 break every 4 hours)
+        const breaks = Math.floor(timeWithoutBreaks / 4);
+        
+        // Total time including breaks
+        return timeWithoutBreaks + breaks;
+    }
+}
+
+// Example usage
+const myCar = new Car('Toyota', 'Corolla', 2020, 100);
+myCar.displayInfo();
+console.log(`Time to travel 500 km: ${myCar.travelTime(500).toFixed(2)} hours`);
+2
+class Fraction {
+    constructor(numerator, denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+        this.simplify();
+    }
+
+    // Helper function to find the greatest common divisor
+    gcd(a, b) {
+        while (b) {
+            [a, b] = [b, a % b];
+        }
+        return a;
+    }
+
+    simplify() {
+        const commonDivisor = this.gcd(Math.abs(this.numerator), Math.abs(this.denominator));
+        this.numerator /= commonDivisor;
+        this.denominator /= commonDivisor;
+    }
+
+    add(other) {
+        const newNumerator = (this.numerator * other.denominator) + (other.numerator * this.denominator);
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator);
+    }
+
+    subtract(other) {
+        const newNumerator = (this.numerator * other.denominator) - (other.numerator * this.denominator);
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator);
+    }
+
+    multiply(other) {
+        const newNumerator = this.numerator * other.numerator;
+        const newDenominator = this.denominator * other.denominator;
+        return new Fraction(newNumerator, newDenominator);
+    }
+
+    divide(other) {
+        const newNumerator = this.numerator * other.denominator;
+        const newDenominator = this.denominator * other.numerator;
+        return new Fraction(newNumerator, newDenominator);
+    }
+
+    display() {
+        console.log(`${this.numerator}/${this.denominator}`);
+    }
+}
+
+// Example usage
+const fraction1 = new Fraction(1, 2);
+const fraction2 = new Fraction(1, 3);
+
+const sum = fraction1.add(fraction2);
+const difference = fraction1.subtract(fraction2);
+const product = fraction1.multiply(fraction2);
+const quotient = fraction1.divide(fraction2);
+
+console.log("Sum:");
+sum.display();
+
+console.log("Difference:");
+difference.display();
+
+console.log("Product:");
+product.display();
+
+console.log("Quotient:");
+quotient.display();
